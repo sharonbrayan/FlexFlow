@@ -37,3 +37,17 @@ FlexFlow is **not**:
 
 FlexFlow is an experimental learning project.
 Breaking changes are expected, and the API may evolve over time.
+
+
+## Supported Utilities (v0)
+
+### Background
+```html
+<div class="bg-[#ffffff]"></div>
+```
+### Padding
+```html
+<div class="p-[16px] p@md-[24px] p@lg-[32px]"></div>
+```
+
+Responsive varients apply at runtime based on the viewport width.
