@@ -36,6 +36,9 @@ export function parseClass(el, className) {
     applyWidth(el, className);
     return;
   }
-
+  if (className.startsWith("h-") || className.startsWith("h@")) {
+  applyWidth(el, className);
+  return;
+}
 
 }

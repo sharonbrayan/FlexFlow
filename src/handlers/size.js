@@ -21,4 +21,24 @@ export function applyWidth(el, className) {
       el.style.width = value;
     }
   }
+  // h-[value]
+if (className.startsWith("h-[")) {
+  const value = className.slice(3, -1);
+  el.style.height = value;
+  return;
+}
+
+// h@md-[value]
+if (className.startsWith("h@")) {
+  const match = className.match(/^h@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    el.style.height = value;
+  }
+}
 }
