@@ -57,4 +57,47 @@ if (className.startsWith("px@") || className.startsWith("py@")) {
     }
   }
 }
+// m-[value]
+if (className.startsWith("m-[")) {
+  const value = className.slice(3, -1);
+  el.style.margin = value;
+  return;
+}
+
+// mx-[value] / my-[value]
+if (className.startsWith("mx-[")) {
+  const value = className.slice(4, -1);
+  el.style.marginLeft = value;
+  el.style.marginRight = value;
+  return;
+}
+
+if (className.startsWith("my-[")) {
+  const value = className.slice(4, -1);
+  el.style.marginTop = value;
+  el.style.marginBottom = value;
+  return;
+}
+
+// mx@md-[value] / my@md-[value] / m@md-[value]
+if (className.startsWith("m@") || className.startsWith("mx@") || className.startsWith("my@")) {
+  const match = className.match(/^(m|mx|my)@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, type, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    if (type === "m") {
+      el.style.margin = value;
+    } else if (type === "mx") {
+      el.style.marginLeft = value;
+      el.style.marginRight = value;
+    } else {
+      el.style.marginTop = value;
+      el.style.marginBottom = value;
+    }
+  }
+}
 }

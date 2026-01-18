@@ -20,7 +20,13 @@ export function parseClass(el, className) {
     className.startsWith("px-") ||
     className.startsWith("px@") ||
     className.startsWith("py-") ||
-    className.startsWith("py@")
+    className.startsWith("py@") ||
+    className.startsWith("m-") ||
+    className.startsWith("m@") ||
+    className.startsWith("mx-") ||
+    className.startsWith("mx@") ||
+    className.startsWith("my-") ||
+    className.startsWith("my@")
   ) {
     applyPadding(el, className);
     return;
@@ -30,4 +36,6 @@ export function parseClass(el, className) {
     applyWidth(el, className);
     return;
   }
+
+
 }
