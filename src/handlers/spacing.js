@@ -5,6 +5,7 @@ export function applyPadding(el, className) {
   if (className.startsWith("p-[")) {
     const value = className.slice(3, -1);
     el.style.padding = value;
+    el.__flexflow.styles.add("padding");
     return;
   }
 
@@ -20,13 +21,16 @@ export function applyPadding(el, className) {
 
     if (window.innerWidth >= minWidth) {
       el.style.padding = value;
+      el.__flexflow.styles.add("padding");
     }
   }
   // px-[value]
 if (className.startsWith("px-[")) {
   const value = className.slice(4, -1);
   el.style.paddingLeft = value;
+  el.__flexflow.styles.add("paddingLeft");
   el.style.paddingRight = value;
+  el.__flexflow.styles.add("paddingRight");
   return;
 }
 
@@ -34,7 +38,9 @@ if (className.startsWith("px-[")) {
 if (className.startsWith("py-[")) {
   const value = className.slice(4, -1);
   el.style.paddingTop = value;
+  el.__flexflow.styles.add("paddingTop");
   el.style.paddingBottom = value;
+  el.__flexflow.styles.add("paddingBottom");
   return;
 }
 
@@ -50,10 +56,14 @@ if (className.startsWith("px@") || className.startsWith("py@")) {
   if (window.innerWidth >= minWidth) {
     if (axis === "px") {
       el.style.paddingLeft = value;
+      el.__flexflow.styles.add("paddingLeft");
       el.style.paddingRight = value;
+      el.__flexflow.styles.add("paddingRight");
     } else {
       el.style.paddingTop = value;
+      el.__flexflow.styles.add("paddingTop");
       el.style.paddingBottom = value;
+      el.__flexflow.styles.add("paddingBottom");
     }
   }
 }
@@ -61,6 +71,7 @@ if (className.startsWith("px@") || className.startsWith("py@")) {
 if (className.startsWith("m-[")) {
   const value = className.slice(3, -1);
   el.style.margin = value;
+  el.__flexflow.styles.add("margin");
   return;
 }
 
@@ -68,14 +79,18 @@ if (className.startsWith("m-[")) {
 if (className.startsWith("mx-[")) {
   const value = className.slice(4, -1);
   el.style.marginLeft = value;
+  el.__flexflow.styles.add("marginLeft");
   el.style.marginRight = value;
+  el.__flexflow.styles.add("marginRight");
   return;
 }
 
 if (className.startsWith("my-[")) {
   const value = className.slice(4, -1);
   el.style.marginTop = value;
+  el.__flexflow.styles.add("marginTop");
   el.style.marginBottom = value;
+  el.__flexflow.styles.add("marginBottom");
   return;
 }
 
@@ -91,12 +106,17 @@ if (className.startsWith("m@") || className.startsWith("mx@") || className.start
   if (window.innerWidth >= minWidth) {
     if (type === "m") {
       el.style.margin = value;
+      el.__flexflow.styles.add("margin");
     } else if (type === "mx") {
       el.style.marginLeft = value;
+      el.__flexflow.styles.add("marginLeft");
       el.style.marginRight = value;
+      el.__flexflow.styles.add("marginRight");
     } else {
       el.style.marginTop = value;
+      el.__flexflow.styles.add("marginTop");
       el.style.marginBottom = value;
+      el.__flexflow.styles.add("marginBottom");
     }
   }
 }

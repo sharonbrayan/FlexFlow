@@ -1,18 +1,28 @@
 import { parseClass } from "./parser.js";
 function resetFlexFlowStyles(el) {
-  el.style.height = "";
-  el.style.minHeight = "";
-  el.style.maxHeight = "";
-  el.style.width = "";
-  el.style.minWidth = "";
-  el.style.maxWidth = "";
-  el.style.padding = "";
-  el.style.margin = "";
+  const store = el.__flexflow;
+  if (!store) return;
+
+  store.styles.forEach(prop => {
+    el.style[prop] = "";
+  });
+
+  store.styles.clear();
+}
+function getFFStore(el) {
+  if (!el.__flexflow) {
+    el.__flexflow = {
+      styles: new Set()
+    };
+  }
+  return el.__flexflow;
 }
 export function initFlexFlow() {
   const elements = document.querySelectorAll("[class]");
 
   elements.forEach(el => {
+  const store = getFFStore(el); // 👈 THIS is the missing call
+
   resetFlexFlowStyles(el);
 
   el.classList.forEach(className => {

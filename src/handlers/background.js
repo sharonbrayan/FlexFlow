@@ -5,4 +5,5 @@ export function applyBackground(el, className) {
     if (!value) return;
   
     el.style.backgroundColor = value;
+    el.__flexflow?.styles.add("backgroundColor")
   }

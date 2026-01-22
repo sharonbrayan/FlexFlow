@@ -5,4 +5,5 @@ export function applyTextColor(el, className) {
     if (!value) return;
   
     el.style.color = value;
+    el.__flexflow.styles.add("color");
   }
