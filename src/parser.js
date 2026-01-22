@@ -49,5 +49,13 @@ if (
   applyWidth(el, className);
   return;
 }
-
+if (
+  className.startsWith("min-h-") ||
+  className.startsWith("min-h@") ||
+  className.startsWith("max-h-") ||
+  className.startsWith("max-h@")
+) {
+  applyWidth(el, className); // size handler owns this
+  return;
+}
 }

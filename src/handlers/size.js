@@ -69,4 +69,32 @@ if (className.startsWith("min-w@") || className.startsWith("max-w@")) {
     else el.style.maxWidth = value;
   }
 }
+// min-h-[value]
+if (className.startsWith("min-h-[")) {
+  const value = className.slice(7, -1);
+  el.style.minHeight = value;
+  return;
+}
+
+// max-h-[value]
+if (className.startsWith("max-h-[")) {
+  const value = className.slice(7, -1);
+  el.style.maxHeight = value;
+  return;
+}
+
+// min-h@md-[value] / max-h@md-[value]
+if (className.startsWith("min-h@") || className.startsWith("max-h@")) {
+  const match = className.match(/^(min-h|max-h)@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, type, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    if (type === "min-h") el.style.minHeight = value;
+    else el.style.maxHeight = value;
+  }
+}
 }
