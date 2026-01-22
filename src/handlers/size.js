@@ -41,4 +41,32 @@ if (className.startsWith("h@")) {
     el.style.height = value;
   }
 }
+// min-w-[value]
+if (className.startsWith("min-w-[")) {
+  const value = className.slice(7, -1);
+  el.style.minWidth = value;
+  return;
+}
+
+// max-w-[value]
+if (className.startsWith("max-w-[")) {
+  const value = className.slice(7, -1);
+  el.style.maxWidth = value;
+  return;
+}
+
+// min-w@md-[value] / max-w@md-[value]
+if (className.startsWith("min-w@") || className.startsWith("max-w@")) {
+  const match = className.match(/^(min-w|max-w)@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, type, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    if (type === "min-w") el.style.minWidth = value;
+    else el.style.maxWidth = value;
+  }
+}
 }

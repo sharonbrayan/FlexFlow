@@ -40,5 +40,14 @@ export function parseClass(el, className) {
   applyWidth(el, className);
   return;
 }
+if (
+  className.startsWith("min-w-") ||
+  className.startsWith("min-w@") ||
+  className.startsWith("max-w-") ||
+  className.startsWith("max-w@")
+) {
+  applyWidth(el, className);
+  return;
+}
 
 }
