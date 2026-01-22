@@ -4,9 +4,24 @@
 
 FlexFlow is a small experimental utility library created to solve simple but common styling limitations developers face when working with existing CSS frameworks.
 
-While frameworks like Bootstrap and Tailwind cover most use cases, there are everyday scenarios where developers need more flexibility without adding inline styles, custom CSS files, or heavy configuration.
+While frameworks like Bootstrap and Tailwind cover most use cases, there are everyday scenarios where developers need more flexibility without adding inline styles, writing custom CSS, or maintaining configuration files.
 
-FlexFlow focuses on providing a minimal and readable way to apply flexible CSS values where existing utility systems feel restrictive.
+FlexFlow provides a minimal, readable way to apply flexible CSS values directly through utility classes.
+
+---
+
+## Why FlexFlow Exists
+
+During day-to-day development, developers often need custom spacing or sizing values that are not available in predefined utility classes.
+
+While some frameworks allow customization through configuration files, this adds setup overhead and breaks the flow of quick experimentation.
+
+FlexFlow exists to allow developers to:
+
+- Use *any valid CSS value* for spacing and sizing
+- Avoid inline styles and extra CSS files
+- Apply responsive behavior without build tools or configuration
+- Keep markup readable and predictable
 
 ---
 
@@ -33,11 +48,15 @@ FlexFlow is **not**:
 
 ---
 
-## Project Status
+## How It Works
 
-FlexFlow is an experimental learning project.
-Breaking changes are expected, and the API may evolve over time.
+FlexFlow evaluates utility classes *at runtime* in the browser.
 
+Styles are applied dynamically based on the current viewport size and are re-evaluated when the window is resized. This allows responsive behavior without relying on build-time tools or configuration files.
+
+FlexFlow respects native CSS behavior and applies styles only where conditions match.
+
+---
 
 ## Supported Utilities (v0)
 
