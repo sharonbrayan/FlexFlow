@@ -1,0 +1,19 @@
+{
+  "name": "flexflow-css",
+  "version": "0.1.0",
+  "description": "A small runtime utility library for flexible CSS values without build tools or configuration",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "keywords": [
+    "css",
+    "utility",
+    "runtime",
+    "responsive",
+    "flexflow"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
