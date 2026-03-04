@@ -33,6 +33,8 @@ export function parseClass(el, className) {
     return;
   }
 if (
+  className.startsWith("position-") ||
+  className.startsWith("position@") ||
     className.startsWith("top-") ||
     className.startsWith("top@") ||
     className.startsWith("right-") ||

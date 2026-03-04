@@ -1,6 +1,13 @@
 import { BREAKPOINTS } from "../breakpoints.js";
 
 export function applyPosition(el, className) {
+  // position-[absolute]
+if (className.startsWith("position-") ) {
+  const value = className.slice(10, -1);
+  el.style.position = value;
+  el.__flexflow.styles.add("position");
+  return;
+}
   const properties = ["top", "right", "bottom", "left"];
 
   // Non-responsive: top-[20px]

@@ -1,63 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-
-
-
-  <style>
-
-  </style>
-
-
-
+<meta charset="UTF-8">
+<title>FlexFlow Position Test</title>
 </head>
 
-<body>
+<body style="height:200vh">
 
-  <h1>Book Inventory</h1>
-  <table>
-    <tr class="read">
-      <th>Title</th>
-      <th>Author</th>
-      <th>Category</th>
-      <th>Status</th>
-      <th>Rate</th>
-    </tr>
+<div class="bg-[#ddd] w-[400px] h-[200px] left-[10px] position-[relative]" >
 
-    <tr class="in-progress">
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td><span class="status">In Progress</span></td>
-      <td><span class="rate"><span></span><span></span><span></span></span></td>
-    </tr>
-    <tr class="in-progress">
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td><span class="status">In Progress</span></td>
-      <td><span class="rate"><span></span><span></span><span></span></span></td>
-    </tr>
-    <tr class="in-progress">
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td>Some Books</td>
-      <td><span class="status">In Progress</span></td>
-      <td><span class="rate"><span></span><span></span><span></span></span></td>
-    </tr>
-  </table>
+  <!-- normal element -->
+  <div class="bg-[#888] w-[100px] h-[100px]">
+    normal
+  </div>
 
+  <!-- absolute element -->
+  <div class="position-[absolute] top-[40px] left-[120px] bg-[#ff4444] w-[100px] h-[100px]">
+    absolute
+  </div>
 
+</div>
 
+<script type="module" src="src/index.js"></script>
 
-
-
-
-  <script type="module" src="./src/index.js"></script>
 </body>
-
 </html>
