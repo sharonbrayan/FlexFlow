@@ -2,6 +2,7 @@ import { applyBackground } from "./handlers/background.js";
 import { applyTextColor } from "./handlers/text.js";
 import { applyPadding } from "./handlers/spacing.js";
 import { applyWidth } from "./handlers/size.js";
+import { applyPosition } from "./handlers/position.js";
 
 export function parseClass(el, className) {
   if (className.startsWith("bg-[")) {
@@ -31,7 +32,19 @@ export function parseClass(el, className) {
     applyPadding(el, className);
     return;
   }
-
+if (
+    className.startsWith("top-") ||
+    className.startsWith("top@") ||
+    className.startsWith("right-") ||
+    className.startsWith("right@") ||
+    className.startsWith("bottom-") ||
+    className.startsWith("bottom@") ||
+    className.startsWith("left-") ||
+    className.startsWith("left@")
+  ) {
+    applyPosition(el, className);
+    return;
+  }
   if (className.startsWith("w-") || className.startsWith("w@")) {
     applyWidth(el, className);
     return;
