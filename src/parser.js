@@ -4,6 +4,7 @@ import { applyPadding } from "./handlers/spacing.js";
 import { applyWidth } from "./handlers/size.js";
 import { applyPosition } from "./handlers/position.js";
 import { applyTypography } from "./handlers/typography.js";
+import { applyVisual } from "./handlers/visuals.js";
 
 
 export function parseClass(el, className) {
@@ -79,6 +80,17 @@ export function parseClass(el, className) {
   className.startsWith("ls@")
 ) {
   applyTypography(el, className);
+  return;
+}
+if (
+  className.startsWith("br-") ||
+  className.startsWith("br@") ||
+  className.startsWith("op-") ||
+  className.startsWith("op@") ||
+  className.startsWith("gap-") ||
+  className.startsWith("gap@")
+) {
+  applyVisual(el, className);
   return;
 }
   if (
