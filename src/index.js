@@ -38,3 +38,11 @@ initFlexFlow();
 window.addEventListener("resize", () => {
   initFlexFlow();
 });
+const observer = new MutationObserver(() => {
+  initFlexFlow();
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
