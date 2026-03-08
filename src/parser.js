@@ -3,6 +3,8 @@ import { applyTextColor } from "./handlers/text.js";
 import { applyPadding } from "./handlers/spacing.js";
 import { applyWidth } from "./handlers/size.js";
 import { applyPosition } from "./handlers/position.js";
+import { applyTypography } from "./handlers/typography.js";
+
 
 export function parseClass(el, className) {
   if (className.startsWith("bg-[")) {
@@ -66,6 +68,19 @@ export function parseClass(el, className) {
     applyWidth(el, className);
     return;
   }
+  if (
+  className.startsWith("fs-") ||
+  className.startsWith("fs@") ||
+  className.startsWith("fw-") ||
+  className.startsWith("fw@") ||
+  className.startsWith("lh-") ||
+  className.startsWith("lh@") ||
+  className.startsWith("ls-") ||
+  className.startsWith("ls@")
+) {
+  applyTypography(el, className);
+  return;
+}
   if (
     className.startsWith("min-h-") ||
     className.startsWith("min-h@") ||
