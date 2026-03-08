@@ -32,9 +32,9 @@ export function parseClass(el, className) {
     applyPadding(el, className);
     return;
   }
-if (
-  className.startsWith("position-") ||
-  className.startsWith("position@") ||
+  if (
+    className.startsWith("position-") ||
+    className.startsWith("position@") ||
     className.startsWith("top-") ||
     className.startsWith("top@") ||
     className.startsWith("right-") ||
@@ -42,7 +42,9 @@ if (
     className.startsWith("bottom-") ||
     className.startsWith("bottom@") ||
     className.startsWith("left-") ||
-    className.startsWith("left@")
+    className.startsWith("left@") ||
+    className.startsWith("z-") ||
+    className.startsWith("z@")
   ) {
     applyPosition(el, className);
     return;
@@ -52,25 +54,25 @@ if (
     return;
   }
   if (className.startsWith("h-") || className.startsWith("h@")) {
-  applyWidth(el, className);
-  return;
-}
-if (
-  className.startsWith("min-w-") ||
-  className.startsWith("min-w@") ||
-  className.startsWith("max-w-") ||
-  className.startsWith("max-w@")
-) {
-  applyWidth(el, className);
-  return;
-}
-if (
-  className.startsWith("min-h-") ||
-  className.startsWith("min-h@") ||
-  className.startsWith("max-h-") ||
-  className.startsWith("max-h@")
-) {
-  applyWidth(el, className); // size handler owns this
-  return;
-}
+    applyWidth(el, className);
+    return;
+  }
+  if (
+    className.startsWith("min-w-") ||
+    className.startsWith("min-w@") ||
+    className.startsWith("max-w-") ||
+    className.startsWith("max-w@")
+  ) {
+    applyWidth(el, className);
+    return;
+  }
+  if (
+    className.startsWith("min-h-") ||
+    className.startsWith("min-h@") ||
+    className.startsWith("max-h-") ||
+    className.startsWith("max-h@")
+  ) {
+    applyWidth(el, className); // size handler owns this
+    return;
+  }
 }

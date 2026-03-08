@@ -19,6 +19,13 @@ if (className.startsWith("position-") ) {
       return;
     }
   }
+  // z-[10]
+if (className.startsWith("z-[")) {
+  const value = className.slice(3, -1);
+  el.style.zIndex = value;
+  el.__flexflow.styles.add("zIndex");
+  return;
+}
 
   // Responsive: top@md-[20px]
   const match = className.match(/^(top|right|bottom|left)@(\w+)-\[(.+)\]$/);
@@ -32,4 +39,20 @@ if (className.startsWith("position-") ) {
     el.style[prop] = value;
     el.__flexflow.styles.add(prop);
   }
+  // z@md-[10]
+const zMatch = className.match(/^z@(\w+)-\[(.+)\]$/);
+
+if (zMatch) {
+  const [, bp, value] = zMatch;
+  const minWidth = BREAKPOINTS[bp];
+
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    el.style.zIndex = value;
+    el.__flexflow.styles.add("zIndex");
+  }
+
+  return;
 }
+} 
