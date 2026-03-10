@@ -10,6 +10,25 @@ function debounce(fn, delay = 100) {
   };
 }
 
+function getFFStore(el) {
+  if (!el.__flexflow) {
+    el.__flexflow = {
+      styles: new Set()
+    };
+  }
+  return el.__flexflow;
+}
+
+function resetFlexFlowStyles(el) {
+  const store = el.__flexflow;
+  if (!store) return;
+
+  store.styles.forEach(prop => {
+    el.style[prop] = "";
+  });
+
+  store.styles.clear();
+}
 
 export function initFlexFlow() {
   const elements = document.querySelectorAll("[class]");
