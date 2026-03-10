@@ -1,22 +1,16 @@
 import { parseClass } from "./parser.js";
-function resetFlexFlowStyles(el) {
-  const store = el.__flexflow;
-  if (!store) return;
 
-  store.styles.forEach(prop => {
-    el.style[prop] = "";
-  });
 
-  store.styles.clear();
+function debounce(fn, delay = 100) {
+  let timeout;
+
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), delay);
+  };
 }
-function getFFStore(el) {
-  if (!el.__flexflow) {
-    el.__flexflow = {
-      styles: new Set()
-    };
-  }
-  return el.__flexflow;
-}
+
+
 export function initFlexFlow() {
   const elements = document.querySelectorAll("[class]");
 
@@ -35,9 +29,10 @@ export function initFlexFlow() {
 initFlexFlow();
 
 // Re-run on resize
-window.addEventListener("resize", () => {
-  initFlexFlow();
-});
+const debouncedInit = debounce(initFlexFlow, 120);
+
+window.addEventListener("resize", debouncedInit);
+
 const observer = new MutationObserver(() => {
   initFlexFlow();
 });
