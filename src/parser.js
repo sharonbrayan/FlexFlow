@@ -7,7 +7,49 @@ import { applyTypography } from "./handlers/typography.js";
 import { applyVisual } from "./handlers/visuals.js";
 
 
+const SPACING_PREFIXES = [
+  "p-", "p@",
+  "px-", "px@",
+  "py-", "py@",
+  "m-", "m@",
+  "mx-", "mx@",
+  "my-", "my@"
+];
+
+const POSITION_PREFIXES = [
+  "position-", "position@",
+  "top-", "top@",
+  "right-", "right@",
+  "bottom-", "bottom@",
+  "left-", "left@",
+  "z-", "z@"
+];
+
+const SIZE_PREFIXES = [
+  "w-", "w@",
+  "h-", "h@",
+  "min-w-", "min-w@",
+  "max-w-", "max-w@",
+  "min-h-", "min-h@",
+  "max-h-", "max-h@"
+];
+
+const TYPOGRAPHY_PREFIXES = [
+  "fs-", "fs@",
+  "fw-", "fw@",
+  "lh-", "lh@",
+  "ls-", "ls@"
+];
+
+const VISUAL_PREFIXES = [
+  "br-", "br@",
+  "op-", "op@",
+  "gap-", "gap@"
+];
+
+
 export function parseClass(el, className) {
+
   if (className.startsWith("bg-[")) {
     applyBackground(el, className);
     return;
@@ -18,88 +60,28 @@ export function parseClass(el, className) {
     return;
   }
 
-  if (
-    className.startsWith("p-") ||
-    className.startsWith("p@") ||
-    className.startsWith("px-") ||
-    className.startsWith("px@") ||
-    className.startsWith("py-") ||
-    className.startsWith("py@") ||
-    className.startsWith("m-") ||
-    className.startsWith("m@") ||
-    className.startsWith("mx-") ||
-    className.startsWith("mx@") ||
-    className.startsWith("my-") ||
-    className.startsWith("my@")
-  ) {
+  if (SPACING_PREFIXES.some(prefix => className.startsWith(prefix))) {
     applyPadding(el, className);
     return;
   }
-  if (
-    className.startsWith("position-") ||
-    className.startsWith("position@") ||
-    className.startsWith("top-") ||
-    className.startsWith("top@") ||
-    className.startsWith("right-") ||
-    className.startsWith("right@") ||
-    className.startsWith("bottom-") ||
-    className.startsWith("bottom@") ||
-    className.startsWith("left-") ||
-    className.startsWith("left@") ||
-    className.startsWith("z-") ||
-    className.startsWith("z@")
-  ) {
+
+  if (POSITION_PREFIXES.some(prefix => className.startsWith(prefix))) {
     applyPosition(el, className);
     return;
   }
-  if (className.startsWith("w-") || className.startsWith("w@")) {
+
+  if (SIZE_PREFIXES.some(prefix => className.startsWith(prefix))) {
     applyWidth(el, className);
     return;
   }
-  if (className.startsWith("h-") || className.startsWith("h@")) {
-    applyWidth(el, className);
+
+  if (TYPOGRAPHY_PREFIXES.some(prefix => className.startsWith(prefix))) {
+    applyTypography(el, className);
     return;
   }
-  if (
-    className.startsWith("min-w-") ||
-    className.startsWith("min-w@") ||
-    className.startsWith("max-w-") ||
-    className.startsWith("max-w@")
-  ) {
-    applyWidth(el, className);
-    return;
-  }
-  if (
-  className.startsWith("fs-") ||
-  className.startsWith("fs@") ||
-  className.startsWith("fw-") ||
-  className.startsWith("fw@") ||
-  className.startsWith("lh-") ||
-  className.startsWith("lh@") ||
-  className.startsWith("ls-") ||
-  className.startsWith("ls@")
-) {
-  applyTypography(el, className);
-  return;
-}
-if (
-  className.startsWith("br-") ||
-  className.startsWith("br@") ||
-  className.startsWith("op-") ||
-  className.startsWith("op@") ||
-  className.startsWith("gap-") ||
-  className.startsWith("gap@")
-) {
-  applyVisual(el, className);
-  return;
-}
-  if (
-    className.startsWith("min-h-") ||
-    className.startsWith("min-h@") ||
-    className.startsWith("max-h-") ||
-    className.startsWith("max-h@")
-  ) {
-    applyWidth(el, className); // size handler owns this
+
+  if (VISUAL_PREFIXES.some(prefix => className.startsWith(prefix))) {
+    applyVisual(el, className);
     return;
   }
 }
