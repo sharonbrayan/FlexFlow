@@ -10,18 +10,106 @@ FlexFlow provides a minimal, readable way to apply flexible CSS values directly 
 
 ---
 
+## Installation
+
+```bash
+npm install flexflow-css
+```
+
+---
+
+## Basic Usage
+
+Import and initialize FlexFlow once in your application:
+
+```js
+import { initFlexFlow } from "flexflow-css";
+
+initFlexFlow();
+```
+
+Then use utility classes directly in your markup:
+
+```html
+<div class="p-[20px] bg-[#333] text-[#fff] br-[10px]">
+  Hello FlexFlow
+</div>
+```
+
+---
+
+## Responsive Example
+
+```html
+<div class="fs-[16px] fs@md-[24px]">
+  Responsive text
+</div>
+```
+
+Responsive variants are applied at runtime based on viewport width.
+
+---
+
+## How It Works
+
+FlexFlow evaluates utility classes at runtime in the browser.
+
+It scans elements, parses supported class patterns, and applies corresponding inline styles dynamically. Styles are re-evaluated on window resize and when new elements are added to the DOM.
+
+This allows responsive behavior without build tools or configuration files.
+
+---
+
+## Available Utilities
+
+FlexFlow currently supports the following utility groups:
+
+### Colors
+```
+bg-[#hex]   text-[#hex]
+```
+
+### Spacing
+```
+p px py m mx my
+```
+
+### Size
+```
+w h min-w max-w min-h max-h
+```
+
+### Position
+```
+position top right bottom left z
+```
+
+### Typography
+```
+fs fw lh ls
+```
+
+### Visual
+```
+br op gap
+```
+
+All utilities support arbitrary values using the `[value]` syntax and responsive variants using `@breakpoint`.
+
+---
+
 ## Why FlexFlow Exists
 
-During day-to-day development, developers often need custom spacing or sizing values that are not available in predefined utility classes.
+During day-to-day development, developers often need custom spacing, sizing, or styling values that are not available in predefined utility classes.
 
 While some frameworks allow customization through configuration files, this adds setup overhead and breaks the flow of quick experimentation.
 
-FlexFlow exists to allow developers to:
+FlexFlow allows developers to:
 
-- Use *any valid CSS value* for spacing and sizing
-- Avoid inline styles and extra CSS files
-- Apply responsive behavior without build tools or configuration
-- Keep markup readable and predictable
+- Use any valid CSS value directly in classes  
+- Avoid inline styles and extra CSS files  
+- Apply responsive behavior without configuration  
+- Keep markup readable and predictable  
 
 ---
 
@@ -29,11 +117,11 @@ FlexFlow exists to allow developers to:
 
 FlexFlow follows a few simple principles:
 
-- It does not replace existing CSS frameworks
-- It works alongside other libraries, not against them
-- It prioritizes clarity and ease of use over strict design systems
-- It solves real problems encountered during development, not hypothetical ones
-- It remains small, experimental, and intentionally limited
+- It does not replace existing CSS frameworks  
+- It works alongside other libraries, not against them  
+- It prioritizes clarity and ease of use over strict design systems  
+- It solves real problems encountered during development  
+- It remains small, experimental, and intentionally limited  
 
 ---
 
@@ -41,32 +129,15 @@ FlexFlow follows a few simple principles:
 
 FlexFlow is **not**:
 
-- A full CSS framework
-- A Bootstrap or Tailwind alternative
-- A component library
-- A design system
+- A full CSS framework  
+- A Bootstrap or Tailwind alternative  
+- A component library  
+- A design system  
 
 ---
 
-## How It Works
+## Project Status
 
-FlexFlow evaluates utility classes *at runtime* in the browser.
+FlexFlow is an experimental learning project.
 
-Styles are applied dynamically based on the current viewport size and are re-evaluated when the window is resized. This allows responsive behavior without relying on build-time tools or configuration files.
-
-FlexFlow respects native CSS behavior and applies styles only where conditions match.
-
----
-
-## Supported Utilities (v0)
-
-### Background
-```html
-<div class="bg-[#ffffff]"></div>
-```
-### Padding
-```html
-<div class="p-[16px] p@md-[24px] p@lg-[32px]"></div>
-```
-
-Responsive varients apply at runtime based on the viewport width.
+Breaking changes may occur, and the API may evolve over time.

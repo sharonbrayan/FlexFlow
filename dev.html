@@ -6,13 +6,13 @@
   <title>FlexFlow Position Test</title>
   <link rel="stylesheet" href="styles.css">
 
- 
+
 </head>
 
 <body style="height:200vh" class="p-[20px]">
 
-<div class="bg-[#ddd] h-[20px]"></div>
- 
+  <div class="bg-[#ddd] h-[20px]"></div>
+
   <script type="module" src="src/index.js"></script>
 
 </body>
@@ -22,57 +22,203 @@
 
 
 
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <title>Technical Documentation Page</title>
+
+  <style>
+    html {
+      font-size: 62.5%;
+
+
+    }
+
+    body {
+      font-family: Baskervville, serif;
+      color: linen;
+      background-color: rgb(20, 30, 40);
+    }
+
+    h1 {
+      font-family: Anton, sans-serif;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: Raleway, sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+      color: linen;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem 1fr);
+
+    }
+
+    .heading {
+      grid-column: 2/3;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero {
+      grid-column: 1/-1;
+      font-size: 1.8rem;
+      letter-spacing: 0.6px;
+      column-width: 25rem;
+    }
+
+    img {
+      width: 100%;
+      object-fit: cover;
+
+    }
+
+    .hero-title {
+      text-align: center;
+      color: orangered;
+      font-size: 8rem;
+    }
+
+    .hero-subtitle {
+      font-size: 2.4rem;
+      color: orangered;
+      text-align: center;
+    }
+
+    .author {
+      font-size: 2rem;
+      font-family: Raleway, sans-serif;
+    }
+
+    .author-name a:hover {
+      background-color: #306203;
+
+    }
+
+    .publish-date {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .social-icons {
+      display: grid;
+      font-size: 3rem;
+      grid-template-columns: repeat(5, 1fr);
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      align-items: center;
+    }
+
+    .first-paragraph::first-letter {
+      font-size: 6rem;
+      color: orangered;
+      float: left;
+      margin-right: 1rem;
+    }
+
+    hr {
+      margin: 1.5rem 0;
+      border: 1px solid rgba(120, 120, 120, 0.6);
+    }
+
+    .quote {
+      color: #00beef;
+      font-size: 2.4rem;
+      text-align: center;
+    }
+
+    .quote::before {
+      content: '" ';
+    }
+
+    .quote::after {
+      content: '" ';
+    }
+
+    .text-with-images {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      column-gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .lists {
+      list-style-type: none;
+      margin-top: 2rem;
+    }
+
+    .lists li {
+      margin-bottom: 1.5rem;
+    }
+
+    .image-wrapper {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: repeat(3, min-content);
+      gap: 2rem;
+      place-items: center;
+    }
+
+    .image-1,
+    .image-3 {
+      grid-column: 1/-1;
+    }
+
+    @media (max-width:720px) {
+      .image-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media only screen and (max-width: 755px) {
+      .hero-title {
+        font-size: 6rem;
+
+      }
+
+      .hero-title,
+      .hero-subtitle,
+      .author,
+      .quote,
+      .listtitle {
+        font-size: 1.8rem;
+
+      }
+
+      .social-icons {
+        font-size: 2rem;
+
+      }
+
+      .text {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <nav id="navbar">
-    <header>something new</header>
-    <a href="#one" class="nav-link">one</a><a href="#two" class="nav-link">two</a><a href="#three" class="nav-link">three</a><a href="#four"
-      class="nav-link">four</a><a href="#five" class="nav-link">five</a>
-  </nav>
-  <main id="main-doc">
-    <section class="main-section" id="one">
-      <header>one</header>
-      <p></p>
-      <p></p>
-    </section>
-    <section class="main-section" id="two">
-      <header>two</header>
-      <p></p>
-      <p></p>
-      <code></code><code></code>
-    </section>
-    <section class="main-section" id="three">
-      <header>three</header>
-      <p></p>
-      <p></p>
-      <li></li>
-      <li></li>
-    </section>
-    <section class="main-section" id="four">
-      <header>four</header>
-      <p></p>
-      <p></p>
-      <code></code><code></code><code></code>
-    </section>
-    <section class="main-section" id="five">
-      <header>five</header>
-      <p></p>
-      <p></p>
-      <li></li>
-      <li></li>
-      <li></li>
-    </section>
-    </div>
-  </main>
+  <header id="header">
+    <img src="logo.png" alt="" id="header-img">
+    <nav class="nav-bar"><a href="#section1" class="nav-link"></a><a href="#section2" class="nav-link"></a><a href="#section3"
+        class="nav-link"></a></nav>
+        <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/your-video-id" title="Product Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <form action="https://www.freecodecamp.org/email-submit" id="form">
+          
+          <input name='email' type="email" name="" id="email" placeholder="email" required>
+          <input type="submit" value="" id="submit">
+        </form>
+  </header>
 </body>
 
-</html> -->
+</html>
