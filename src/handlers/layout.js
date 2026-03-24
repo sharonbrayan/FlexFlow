@@ -96,4 +96,51 @@ export function applyLayout(el, className) {
       el.__flexflow.styles.add("alignItems");
     }
   }
+
+  // wrap-[wrap] / wrap-[nowrap]
+if (className.startsWith("wrap-[")) {
+  const value = className.slice(6, -1);
+  el.style.flexWrap = value;
+  el.__flexflow.styles.add("flexWrap");
+  return;
+}
+
+// wrap@md-[wrap]
+if (className.startsWith("wrap@")) {
+  const match = className.match(/^wrap@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    el.style.flexWrap = value;
+    el.__flexflow.styles.add("flexWrap");
+  }
+  return;
+}
+
+// content-[center]
+if (className.startsWith("content-[")) {
+  const value = className.slice(9, -1);
+  el.style.alignContent = value;
+  el.__flexflow.styles.add("alignContent");
+  return;
+}
+
+// content@md-[center]
+if (className.startsWith("content@")) {
+  const match = className.match(/^content@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, bp, value] = match;
+  const minWidth = BREAKPOINTS[bp];
+  if (!minWidth) return;
+
+  if (window.innerWidth >= minWidth) {
+    el.style.alignContent = value;
+    el.__flexflow.styles.add("alignContent");
+  }
+}
 }

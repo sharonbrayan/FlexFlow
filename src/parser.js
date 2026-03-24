@@ -51,7 +51,9 @@ const LAYOUT_PREFIXES = [
   "d-", "d@",
   "flex-", "flex@",
   "justify-", "justify@",
-  "items-", "items@"
+  "items-", "items@",
+  "wrap-", "wrap@",
+"content-", "content@"
 ];
 
 export function parseClass(el, className) {
