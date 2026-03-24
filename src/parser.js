@@ -6,6 +6,7 @@ import { applyPosition } from "./handlers/position.js";
 import { applyTypography } from "./handlers/typography.js";
 import { applyVisual } from "./handlers/visuals.js";
 import { applyLayout } from "./handlers/layout.js";
+import { applyGrid } from "./handlers/grid.js";
 
 
 const SPACING_PREFIXES = [
@@ -56,6 +57,12 @@ const LAYOUT_PREFIXES = [
 "content-", "content@"
 ];
 
+const GRID_PREFIXES = [
+  "grid",
+  "cols-", "cols@",
+  "rows-", "rows@"
+];
+
 export function parseClass(el, className) {
 
   if (className.startsWith("bg-[")) {
@@ -96,4 +103,9 @@ export function parseClass(el, className) {
     applyLayout(el, className);
     return;
   }
+
+  if (GRID_PREFIXES.some(prefix => className.startsWith(prefix))) {
+  applyGrid(el, className);
+  return;
+}
 }
