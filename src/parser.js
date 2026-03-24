@@ -5,6 +5,7 @@ import { applyWidth } from "./handlers/size.js";
 import { applyPosition } from "./handlers/position.js";
 import { applyTypography } from "./handlers/typography.js";
 import { applyVisual } from "./handlers/visuals.js";
+import { applyLayout } from "./handlers/layout.js";
 
 
 const SPACING_PREFIXES = [
@@ -46,7 +47,12 @@ const VISUAL_PREFIXES = [
   "op-", "op@",
   "gap-", "gap@"
 ];
-
+const LAYOUT_PREFIXES = [
+  "d-", "d@",
+  "flex-", "flex@",
+  "justify-", "justify@",
+  "items-", "items@"
+];
 
 export function parseClass(el, className) {
 
@@ -82,6 +88,10 @@ export function parseClass(el, className) {
 
   if (VISUAL_PREFIXES.some(prefix => className.startsWith(prefix))) {
     applyVisual(el, className);
+    return;
+  }
+  if (LAYOUT_PREFIXES.some(prefix => className.startsWith(prefix))) {
+    applyLayout(el, className);
     return;
   }
 }
