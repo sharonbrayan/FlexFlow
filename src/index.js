@@ -31,14 +31,15 @@ function resetFlexFlowStyles(el) {
 }
 
 export function initFlexFlow() {
+  console.log(window.innerWidth);
   const elements = document.querySelectorAll("[class]");
-
+  
   elements.forEach(el => {
-  const store = getFFStore(el); // 👈 THIS is the missing call
-
-  resetFlexFlowStyles(el);
-
-  el.classList.forEach(className => {
+    const store = getFFStore(el); // 👈 THIS is the missing call
+    
+    resetFlexFlowStyles(el);
+    
+    el.classList.forEach(className => {
     parseClass(el, className);
   });
 });
@@ -52,10 +53,38 @@ const debouncedInit = debounce(initFlexFlow, 120);
 
 window.addEventListener("resize", debouncedInit);
 
-const observer = new MutationObserver(() => {
-  initFlexFlow();
-});
 
+function processElement(el) {
+
+  getFFStore(el);
+  resetFlexFlowStyles(el);
+
+  if (el.classList) {
+    el.classList.forEach(className => {
+      parseClass(el, className);
+    });
+  }
+
+  // also process children inside it
+  const children = el.querySelectorAll("[class]");
+  children.forEach(child => processElement(child));
+}
+
+
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach(mutation => {
+
+    mutation.addedNodes.forEach(node => {
+
+      // only process element nodes
+      if (node.nodeType !== 1) return;
+
+      processElement(node);
+
+    });
+
+  });
+});
 observer.observe(document.body, {
   childList: true,
   subtree: true
