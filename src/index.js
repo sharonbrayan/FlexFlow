@@ -74,18 +74,26 @@ function processElement(el) {
 const observer = new MutationObserver((mutations) => {
   mutations.forEach(mutation => {
 
+    // ✅ handle new elements
     mutation.addedNodes.forEach(node => {
-
-      // only process element nodes
       if (node.nodeType !== 1) return;
-
       processElement(node);
-
     });
+
+    // ✅ handle class changes
+    if (mutation.type === "attributes" && mutation.attributeName === "class") {
+      const el = mutation.target;
+      processElement(el);
+    }
 
   });
 });
+
+
+
 observer.observe(document.body, {
   childList: true,
-  subtree: true
+  subtree: true,
+  attributes: true,
+  attributeFilter: ["class"]
 });

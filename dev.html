@@ -9,8 +9,14 @@
 </head>
 
 <body>
-<div class="h-[100px] w-[100px] bg-[#ff0000] h@sm-[150px] h@md-[200px] h@lg-[300px]">
-</div> 
+<div id="test" class="p-[20px] bg-[#444]">Hello</div>
+
+<script>
+setTimeout(() => {
+  const el = document.getElementById("test");
+  el.classList.add("bg-[#ff0000]");
+}, 2000);
+</script>
   <script type="module" src="src/index.js"></script>
 
 </body>
