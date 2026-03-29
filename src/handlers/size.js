@@ -1,4 +1,5 @@
 import { BREAKPOINTS } from "../breakpoints.js";
+import { getActiveBreakpoint } from "../utils/responsive.js";
 
 export function applyWidth(el, className) {
   // w-[50%]
@@ -24,27 +25,43 @@ export function applyWidth(el, className) {
     }
   }
   // h-[value]
-  if (className.startsWith("h-[")) {
-    const value = className.slice(3, -1);
-    el.style.height = value;
-    el.__flexflow.styles.add("height")
-    return;
-  }
 
-  // h@md-[value]
-  if (className.startsWith("h@")) {
-    const match = className.match(/^h@(\w+)-\[(.+)\]$/);
-    if (!match) return;
+// h-[value]
+if (className.startsWith("h-[")) {
+  const value = className.slice(3, -1);
 
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
+  if (!el.__flexflow.values) el.__flexflow.values = {};
+  if (!el.__flexflow.values.height) el.__flexflow.values.height = {};
 
-    if (window.innerWidth >= minWidth) {
-      el.style.height = value;
-      el.__flexflow.styles.add("height")
-    }
-  }
+  el.__flexflow.values.height["base"] = value;
+
+  const active = getActiveBreakpoint();
+  const values = el.__flexflow.values.height;
+
+  el.style.height = values[active] || values["base"];
+  el.__flexflow.styles.add("height");
+
+  return;
+}
+
+ // h@md-[value]
+if (className.startsWith("h@")) {
+  const match = className.match(/^h@(\w+)-\[(.+)\]$/);
+  if (!match) return;
+
+  const [, bp, value] = match;
+
+  if (!el.__flexflow.values) el.__flexflow.values = {};
+  if (!el.__flexflow.values.height) el.__flexflow.values.height = {};
+
+  el.__flexflow.values.height[bp] = value;
+
+  const active = getActiveBreakpoint();
+  const values = el.__flexflow.values.height;
+
+  el.style.height = values[active] || values["base"];
+  el.__flexflow.styles.add("height");
+}
   // min-w-[value]
   if (className.startsWith("min-w-[")) {
     const value = className.slice(7, -1);
