@@ -1,146 +1,104 @@
-import { BREAKPOINTS } from "../breakpoints.js";
+import { getActiveBreakpoint, getClosestValue } from "../utils/responsive.js";
 
 export function applyLayout(el, className) {
 
+  function handleBase(propKey, cssProp, value) {
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values[propKey]) el.__flexflow.values[propKey] = {};
+
+    el.__flexflow.values[propKey]["base"] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values[propKey];
+
+    const final = getClosestValue(values, active);
+    el.style[cssProp] = final;
+    el.__flexflow.styles.add(cssProp);
+  }
+
+  function handleResponsive(propKey, cssProp, bp, value) {
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values[propKey]) el.__flexflow.values[propKey] = {};
+
+    el.__flexflow.values[propKey][bp] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values[propKey];
+
+    const final = getClosestValue(values, active);
+    el.style[cssProp] = final;
+    el.__flexflow.styles.add(cssProp);
+  }
+
   // d-[flex]
   if (className.startsWith("d-[")) {
-    const value = className.slice(3, -1);
-    el.style.display = value;
-    el.__flexflow.styles.add("display");
+    handleBase("display", "display", className.slice(3, -1));
     return;
   }
 
-  // d@md-[flex]
-  if (className.startsWith("d@")) {
-    const match = className.match(/^d@(\w+)-\[(.+)\]$/);
-    if (!match) return;
-
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
-
-    if (window.innerWidth >= minWidth) {
-      el.style.display = value;
-      el.__flexflow.styles.add("display");
-    }
+  const dMatch = className.match(/^d@(\w+)-\[(.+)\]$/);
+  if (dMatch) {
+    handleResponsive("display", "display", dMatch[1], dMatch[2]);
     return;
   }
 
-  // flex-[row] / flex-[column]
+  // flex-[row]
   if (className.startsWith("flex-[")) {
-    const value = className.slice(6, -1);
-    el.style.flexDirection = value;
-    el.__flexflow.styles.add("flexDirection");
+    handleBase("flexDirection", "flexDirection", className.slice(6, -1));
     return;
   }
 
-  // flex@md-[row]
-  if (className.startsWith("flex@")) {
-    const match = className.match(/^flex@(\w+)-\[(.+)\]$/);
-    if (!match) return;
-
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
-
-    if (window.innerWidth >= minWidth) {
-      el.style.flexDirection = value;
-      el.__flexflow.styles.add("flexDirection");
-    }
+  const flexMatch = className.match(/^flex@(\w+)-\[(.+)\]$/);
+  if (flexMatch) {
+    handleResponsive("flexDirection", "flexDirection", flexMatch[1], flexMatch[2]);
     return;
   }
 
   // justify-[center]
   if (className.startsWith("justify-[")) {
-    const value = className.slice(9, -1);
-    el.style.justifyContent = value;
-    el.__flexflow.styles.add("justifyContent");
+    handleBase("justifyContent", "justifyContent", className.slice(9, -1));
     return;
   }
 
-  // justify@md-[center]
-  if (className.startsWith("justify@")) {
-    const match = className.match(/^justify@(\w+)-\[(.+)\]$/);
-    if (!match) return;
-
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
-
-    if (window.innerWidth >= minWidth) {
-      el.style.justifyContent = value;
-      el.__flexflow.styles.add("justifyContent");
-    }
+  const justifyMatch = className.match(/^justify@(\w+)-\[(.+)\]$/);
+  if (justifyMatch) {
+    handleResponsive("justifyContent", "justifyContent", justifyMatch[1], justifyMatch[2]);
     return;
   }
 
   // items-[center]
   if (className.startsWith("items-[")) {
-    const value = className.slice(7, -1);
-    el.style.alignItems = value;
-    el.__flexflow.styles.add("alignItems");
+    handleBase("alignItems", "alignItems", className.slice(7, -1));
     return;
   }
 
-  // items@md-[center]
-  if (className.startsWith("items@")) {
-    const match = className.match(/^items@(\w+)-\[(.+)\]$/);
-    if (!match) return;
-
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
-
-    if (window.innerWidth >= minWidth) {
-      el.style.alignItems = value;
-      el.__flexflow.styles.add("alignItems");
-    }
+  const itemsMatch = className.match(/^items@(\w+)-\[(.+)\]$/);
+  if (itemsMatch) {
+    handleResponsive("alignItems", "alignItems", itemsMatch[1], itemsMatch[2]);
+    return;
   }
 
-  // wrap-[wrap] / wrap-[nowrap]
-if (className.startsWith("wrap-[")) {
-  const value = className.slice(6, -1);
-  el.style.flexWrap = value;
-  el.__flexflow.styles.add("flexWrap");
-  return;
-}
-
-// wrap@md-[wrap]
-if (className.startsWith("wrap@")) {
-  const match = className.match(/^wrap@(\w+)-\[(.+)\]$/);
-  if (!match) return;
-
-  const [, bp, value] = match;
-  const minWidth = BREAKPOINTS[bp];
-  if (!minWidth) return;
-
-  if (window.innerWidth >= minWidth) {
-    el.style.flexWrap = value;
-    el.__flexflow.styles.add("flexWrap");
+  // wrap-[wrap]
+  if (className.startsWith("wrap-[")) {
+    handleBase("flexWrap", "flexWrap", className.slice(6, -1));
+    return;
   }
-  return;
-}
 
-// content-[center]
-if (className.startsWith("content-[")) {
-  const value = className.slice(9, -1);
-  el.style.alignContent = value;
-  el.__flexflow.styles.add("alignContent");
-  return;
-}
-
-// content@md-[center]
-if (className.startsWith("content@")) {
-  const match = className.match(/^content@(\w+)-\[(.+)\]$/);
-  if (!match) return;
-
-  const [, bp, value] = match;
-  const minWidth = BREAKPOINTS[bp];
-  if (!minWidth) return;
-
-  if (window.innerWidth >= minWidth) {
-    el.style.alignContent = value;
-    el.__flexflow.styles.add("alignContent");
+  const wrapMatch = className.match(/^wrap@(\w+)-\[(.+)\]$/);
+  if (wrapMatch) {
+    handleResponsive("flexWrap", "flexWrap", wrapMatch[1], wrapMatch[2]);
+    return;
   }
-}
+
+  // content-[center]
+  if (className.startsWith("content-[")) {
+    handleBase("alignContent", "alignContent", className.slice(9, -1));
+    return;
+  }
+
+  const contentMatch = className.match(/^content@(\w+)-\[(.+)\]$/);
+  if (contentMatch) {
+    handleResponsive("alignContent", "alignContent", contentMatch[1], contentMatch[2]);
+    return;
+  }
 }
