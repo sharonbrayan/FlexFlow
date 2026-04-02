@@ -1,5 +1,4 @@
-import { BREAKPOINTS } from "../breakpoints.js";
-import { getActiveBreakpoint } from "../utils/responsive.js";
+import { getActiveBreakpoint,getClosestValue } from "../utils/responsive.js";
 
 export function applyPadding(el, className) {
   // p-[]
@@ -14,7 +13,8 @@ if (className.startsWith("p-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.padding;
 
-  el.style.padding = values[active] || values["base"];
+  const final = getClosestValue(values, active);
+  el.style.padding = final;
   el.__flexflow.styles.add("padding");
 
   return;
@@ -35,7 +35,8 @@ if (className.startsWith("p-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.padding;
 
-  el.style.padding = values[active] || values["base"];
+  const final = getClosestValue(values, active);
+  el.style.padding =final;
   el.__flexflow.styles.add("padding");
 
   return;
@@ -52,8 +53,7 @@ if (className.startsWith("px-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.paddingX;
 
-  const final = values[active] || values["base"];
-
+  const final = getClosestValue(values, active);
   el.style.paddingLeft = final;
   el.style.paddingRight = final;
 
@@ -74,7 +74,7 @@ if (className.startsWith("py-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.paddingY;
 
-  const final = values[active] || values["base"];
+const final = getClosestValue(values, active);
 
   el.style.paddingTop = final;
   el.style.paddingBottom = final;
@@ -100,7 +100,7 @@ if (className.startsWith("py-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.paddingX;
 
-  const final = values[active] || values["base"];
+const final = getClosestValue(values, active);
 
   el.style.paddingLeft = final;
   el.style.paddingRight = final;
@@ -126,8 +126,7 @@ if (className.startsWith("py@")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.paddingY;
 
-  const final = values[active] || values["base"];
-
+const final = getClosestValue(values, active);
   el.style.paddingTop = final;
   el.style.paddingBottom = final;
 
@@ -150,7 +149,8 @@ if (className.startsWith("m-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.margin;
 
-  el.style.margin = values[active] || values["base"];
+  const final = getClosestValue(values, active);
+  el.style.margin = final;
   el.__flexflow.styles.add("margin");
 
   return;
@@ -170,7 +170,8 @@ if (className.startsWith("m@")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.margin;
 
-  el.style.margin = values[active] || values["base"];
+  const final = getClosestValue(values, active);
+  el.style.margin = final;
   el.__flexflow.styles.add("margin");
 
   return;
@@ -190,8 +191,7 @@ if (className.startsWith("mx-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.marginX;
 
-  const final = values[active] || values["base"];
-
+const final = getClosestValue(values, active);
   el.style.marginLeft = final;
   el.style.marginRight = final;
 
@@ -212,8 +212,7 @@ if (className.startsWith("my-[")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.marginY;
 
-  const final = values[active] || values["base"];
-
+const final = getClosestValue(values, active);
   el.style.marginTop = final;
   el.style.marginBottom = final;
 
@@ -241,13 +240,13 @@ if (className.startsWith("mx@")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.marginX;
 
-  const final = values[active] || values["base"];
-
+const final = getClosestValue(values, active);
   el.style.marginLeft = final;
   el.style.marginRight = final;
 
   el.__flexflow.styles.add("marginLeft");
   el.__flexflow.styles.add("marginRight");
+  return;
 }
 
 
@@ -266,13 +265,13 @@ if (className.startsWith("my@")) {
   const active = getActiveBreakpoint();
   const values = el.__flexflow.values.marginY;
 
-  const final = values[active] || values["base"];
-
+const final = getClosestValue(values, active);
   el.style.marginTop = final;
   el.style.marginBottom = final;
 
   el.__flexflow.styles.add("marginTop");
   el.__flexflow.styles.add("marginBottom");
+  return;
 }
 
 

@@ -1,5 +1,4 @@
-import { BREAKPOINTS } from "../breakpoints.js";
-import { getActiveBreakpoint } from "../utils/responsive.js";
+import { getActiveBreakpoint,getClosestValue} from "../utils/responsive.js";
 
 export function applyWidth(el, className) {
   // w-[value]
@@ -14,7 +13,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values.width;
 
-    el.style.width = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style.width = final;
     el.__flexflow.styles.add("width");
 
     return;
@@ -34,7 +34,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values.width;
 
-    el.style.width = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style.width = final;
     el.__flexflow.styles.add("width");
   }
 
@@ -51,7 +52,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values.height;
 
-    el.style.height = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style.height = final;
     el.__flexflow.styles.add("height");
 
     return;
@@ -72,7 +74,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values.height;
 
-    el.style.height = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style.height = final;
     el.__flexflow.styles.add("height");
   }
   // min-w / max-w base
@@ -92,7 +95,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values[key];
 
-    el.style[key] = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style[key] = final
     el.__flexflow.styles.add(key);
 
     return;
@@ -115,7 +119,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values[key];
 
-    el.style[key] = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style[key] = final;
     el.__flexflow.styles.add(key);
 
     return;
@@ -138,7 +143,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values[key];
 
-    el.style[key] = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style[key] = final;
     el.__flexflow.styles.add(key);
 
     return;
@@ -163,7 +169,8 @@ export function applyWidth(el, className) {
     const active = getActiveBreakpoint();
     const values = el.__flexflow.values[key];
 
-    el.style[key] = values[active] || values["base"];
+    const final = getClosestValue(values, active);
+    el.style[key] = final;
     el.__flexflow.styles.add(key);
 
     return;
