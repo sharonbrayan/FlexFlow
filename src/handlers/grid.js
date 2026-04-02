@@ -1,8 +1,8 @@
-import { BREAKPOINTS } from "../breakpoints.js";
+import { getActiveBreakpoint, getClosestValue } from "../utils/responsive.js";
 
 export function applyGrid(el, className) {
 
-  // grid-[true] → display grid
+  // grid
   if (className === "grid") {
     el.style.display = "grid";
     el.__flexflow.styles.add("display");
@@ -12,47 +12,80 @@ export function applyGrid(el, className) {
   // cols-[3]
   if (className.startsWith("cols-[")) {
     const value = className.slice(6, -1);
-    el.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
+
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values.gridCols) el.__flexflow.values.gridCols = {};
+
+    el.__flexflow.values.gridCols["base"] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values.gridCols;
+
+    const final = getClosestValue(values, active);
+    el.style.gridTemplateColumns = `repeat(${final}, 1fr)`;
     el.__flexflow.styles.add("gridTemplateColumns");
+
     return;
   }
 
   // rows-[2]
   if (className.startsWith("rows-[")) {
     const value = className.slice(6, -1);
-    el.style.gridTemplateRows = `repeat(${value}, 1fr)`;
+
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values.gridRows) el.__flexflow.values.gridRows = {};
+
+    el.__flexflow.values.gridRows["base"] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values.gridRows;
+
+    const final = getClosestValue(values, active);
+    el.style.gridTemplateRows = `repeat(${final}, 1fr)`;
     el.__flexflow.styles.add("gridTemplateRows");
+
     return;
   }
 
   // cols@md-[3]
-  if (className.startsWith("cols@")) {
-    const match = className.match(/^cols@(\w+)-\[(.+)\]$/);
-    if (!match) return;
+  const colMatch = className.match(/^cols@(\w+)-\[(.+)\]$/);
 
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
+  if (colMatch) {
+    const [, bp, value] = colMatch;
 
-    if (window.innerWidth >= minWidth) {
-      el.style.gridTemplateColumns = `repeat(${value}, 1fr)`;
-      el.__flexflow.styles.add("gridTemplateColumns");
-    }
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values.gridCols) el.__flexflow.values.gridCols = {};
+
+    el.__flexflow.values.gridCols[bp] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values.gridCols;
+
+    const final = getClosestValue(values, active);
+    el.style.gridTemplateColumns = `repeat(${final}, 1fr)`;
+    el.__flexflow.styles.add("gridTemplateColumns");
+
     return;
   }
 
   // rows@md-[2]
-  if (className.startsWith("rows@")) {
-    const match = className.match(/^rows@(\w+)-\[(.+)\]$/);
-    if (!match) return;
+  const rowMatch = className.match(/^rows@(\w+)-\[(.+)\]$/);
 
-    const [, bp, value] = match;
-    const minWidth = BREAKPOINTS[bp];
-    if (!minWidth) return;
+  if (rowMatch) {
+    const [, bp, value] = rowMatch;
 
-    if (window.innerWidth >= minWidth) {
-      el.style.gridTemplateRows = `repeat(${value}, 1fr)`;
-      el.__flexflow.styles.add("gridTemplateRows");
-    }
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values.gridRows) el.__flexflow.values.gridRows = {};
+
+    el.__flexflow.values.gridRows[bp] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values.gridRows;
+
+    const final = getClosestValue(values, active);
+    el.style.gridTemplateRows = `repeat(${final}, 1fr)`;
+    el.__flexflow.styles.add("gridTemplateRows");
+
+    return;
   }
 }
