@@ -1,4 +1,4 @@
-import { BREAKPOINTS } from "../breakpoints.js";
+import { getActiveBreakpoint,getClosestValue } from "../utils/responsive.js";
 
 export function applyPosition(el, className) {
   // position-[absolute]
@@ -10,49 +10,82 @@ if (className.startsWith("position-") ) {
 }
   const properties = ["top", "right", "bottom", "left"];
 
-  // Non-responsive: top-[20px]
-  for (const prop of properties) {
-    if (className.startsWith(`${prop}-[`)) {
-      const value = className.slice(prop.length + 2, -1);
-      el.style[prop] = value;
-      el.__flexflow.styles.add(prop);
-      return;
-    }
+for (const prop of properties) {
+  if (className.startsWith(`${prop}-[`)) {
+    const value = className.slice(prop.length + 2, -1);
+
+    if (!el.__flexflow.values) el.__flexflow.values = {};
+    if (!el.__flexflow.values[prop]) el.__flexflow.values[prop] = {};
+
+    el.__flexflow.values[prop]["base"] = value;
+
+    const active = getActiveBreakpoint();
+    const values = el.__flexflow.values[prop];
+
+    const final = getClosestValue(values, active);
+el.style[prop] = final;
+    el.__flexflow.styles.add(prop);
+
+    return;
   }
-  // z-[10]
-if (className.startsWith("z-[")) {
-  const value = className.slice(3, -1);
-  el.style.zIndex = value;
-  el.__flexflow.styles.add("zIndex");
+}
+
+const match = className.match(/^(top|right|bottom|left)@(\w+)-\[(.+)\]$/);
+
+if (match) {
+  const [, prop, bp, value] = match;
+
+  if (!el.__flexflow.values) el.__flexflow.values = {};
+  if (!el.__flexflow.values[prop]) el.__flexflow.values[prop] = {};
+
+  el.__flexflow.values[prop][bp] = value;
+
+  const active = getActiveBreakpoint();
+  const values = el.__flexflow.values[prop];
+
+  const final = getClosestValue(values, active);
+el.style[prop] = final;
+  el.__flexflow.styles.add(prop);
+
   return;
 }
 
-  // Responsive: top@md-[20px]
-  const match = className.match(/^(top|right|bottom|left)@(\w+)-\[(.+)\]$/);
-  if (!match) return;
+if (className.startsWith("z-[")) {
+  const value = className.slice(3, -1);
 
-  const [, prop, bp, value] = match;
-  const minWidth = BREAKPOINTS[bp];
-  if (!minWidth) return;
+  if (!el.__flexflow.values) el.__flexflow.values = {};
+  if (!el.__flexflow.values.zIndex) el.__flexflow.values.zIndex = {};
 
-  if (window.innerWidth >= minWidth) {
-    el.style[prop] = value;
-    el.__flexflow.styles.add(prop);
-  }
-  // z@md-[10]
+  el.__flexflow.values.zIndex["base"] = value;
+
+  const active = getActiveBreakpoint();
+  const values = el.__flexflow.values.zIndex;
+
+  const final = getClosestValue(values, active);
+  el.style.zIndex = final;
+  el.__flexflow.styles.add("zIndex");
+
+  return;
+}
+
 const zMatch = className.match(/^z@(\w+)-\[(.+)\]$/);
 
 if (zMatch) {
   const [, bp, value] = zMatch;
-  const minWidth = BREAKPOINTS[bp];
 
-  if (!minWidth) return;
+  if (!el.__flexflow.values) el.__flexflow.values = {};
+  if (!el.__flexflow.values.zIndex) el.__flexflow.values.zIndex = {};
 
-  if (window.innerWidth >= minWidth) {
-    el.style.zIndex = value;
-    el.__flexflow.styles.add("zIndex");
-  }
+  el.__flexflow.values.zIndex[bp] = value;
+
+  const active = getActiveBreakpoint();
+  const values = el.__flexflow.values.zIndex;
+
+  const final = getClosestValue(values, active);
+  el.style.zIndex = final;
+  el.__flexflow.styles.add("zIndex");
 
   return;
 }
-} 
+
+}
