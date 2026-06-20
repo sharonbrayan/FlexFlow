@@ -52,6 +52,7 @@ export function applyGrid(el, className) {
 
   if (colMatch) {
     const [, bp, value] = colMatch;
+    el.__flexflow.hasResponsive = true;
 
     if (!el.__flexflow.values) el.__flexflow.values = {};
     if (!el.__flexflow.values.gridCols) el.__flexflow.values.gridCols = {};
@@ -73,6 +74,7 @@ export function applyGrid(el, className) {
 
   if (rowMatch) {
     const [, bp, value] = rowMatch;
+    el.__flexflow.hasResponsive = true;
 
     if (!el.__flexflow.values) el.__flexflow.values = {};
     if (!el.__flexflow.values.gridRows) el.__flexflow.values.gridRows = {};

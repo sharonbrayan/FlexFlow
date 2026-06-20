@@ -1,6 +1,9 @@
 import { parseClass } from "./parser.js";
 
 
+
+const responsiveElements = new Set();
+
 function debounce(fn, delay = 100) {
   let timeout;
 
@@ -31,38 +34,49 @@ function resetFlexFlowStyles(el) {
 }
 
 export function initFlexFlow() {
-  console.log(window.innerWidth);
   const elements = document.querySelectorAll("[class]");
-  
+
   elements.forEach(el => {
-    const store = getFFStore(el); // 👈 THIS is the missing call
-    
-    resetFlexFlowStyles(el);
-    
-    el.classList.forEach(className => {
-    parseClass(el, className);
-  });
+  processElement(el);
 });
 }
 
 // Initial run
 initFlexFlow();
 
-// Re-run on resize
-const debouncedInit = debounce(initFlexFlow, 120);
+function handleResize() {
+  responsiveElements.forEach(el => {
+    el.__flexflow.hasResponsive=false;
+    resetFlexFlowStyles(el);
 
-window.addEventListener("resize", debouncedInit);
+    el.classList.forEach(className => {
+      parseClass(el, className);
+    });
+
+  });
+}
+// Re-run on resize
+const debouncedResize = debounce(handleResize, 120);
+
+window.addEventListener("resize", debouncedResize);
 
 
 function processElement(el) {
 
   getFFStore(el);
+  el.__flexflow.hasResponsive = false;
   resetFlexFlowStyles(el);
 
   if (el.classList) {
     el.classList.forEach(className => {
       parseClass(el, className);
     });
+  }
+
+  if (el.__flexflow.hasResponsive) {
+    responsiveElements.add(el);
+  } else {
+    responsiveElements.delete(el);
   }
 
   // also process children inside it
@@ -78,6 +92,12 @@ const observer = new MutationObserver((mutations) => {
     mutation.addedNodes.forEach(node => {
       if (node.nodeType !== 1) return;
       processElement(node);
+    });
+    
+    mutation.removedNodes.forEach(node => {
+      if (node.nodeType !== 1) return;
+
+      responsiveElements.delete(node);
     });
 
     // ✅ handle class changes

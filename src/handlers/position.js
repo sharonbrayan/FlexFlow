@@ -33,6 +33,7 @@ el.style[prop] = final;
 const match = className.match(/^(top|right|bottom|left)@(\w+)-\[(.+)\]$/);
 
 if (match) {
+  el.__flexflow.hasResponsive = true;
   const [, prop, bp, value] = match;
 
   if (!el.__flexflow.values) el.__flexflow.values = {};
@@ -71,6 +72,7 @@ if (className.startsWith("z-[")) {
 const zMatch = className.match(/^z@(\w+)-\[(.+)\]$/);
 
 if (zMatch) {
+  el.__flexflow.hasResponsive = true;
   const [, bp, value] = zMatch;
 
   if (!el.__flexflow.values) el.__flexflow.values = {};

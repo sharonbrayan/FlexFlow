@@ -22,6 +22,7 @@ if (className.startsWith("p-[")) {
 
   // p@md-[]
  if (className.startsWith("p@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^p@(\w+)-\[(.+)\]$/);
   if (!match) return;
 
@@ -87,6 +88,7 @@ const final = getClosestValue(values, active);
 
 // px@md-[value]
  if (className.startsWith("px@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^px@(\w+)-\[(.+)\]$/);
   if (!match) return;
 
@@ -113,6 +115,7 @@ const final = getClosestValue(values, active);
 
 // py@md-[value]
 if (className.startsWith("py@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^py@(\w+)-\[(.+)\]$/);
   if (!match) return;
 
@@ -157,6 +160,7 @@ if (className.startsWith("m-[")) {
 }
 
 if (className.startsWith("m@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^m@(\w+)-\[(.+)\]$/);
   if (!match) return;
 
@@ -227,6 +231,7 @@ const final = getClosestValue(values, active);
 // mx@-[value] 
 
 if (className.startsWith("mx@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^mx@(\w+)-\[(.+)\]$/);
   if (!match) return;
 
@@ -252,6 +257,7 @@ const final = getClosestValue(values, active);
 
 //my@-[value] 
 if (className.startsWith("my@")) {
+  el.__flexflow.hasResponsive = true;
   const match = className.match(/^my@(\w+)-\[(.+)\]$/);
   if (!match) return;
 

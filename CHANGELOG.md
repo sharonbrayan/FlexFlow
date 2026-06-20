@@ -1,23 +1,28 @@
 # Changelog
 
-## 0.1.0
-- Initial experimental release
-- Runtime utility-based styling
-- Arbitrary spacing and sizing values
-- Responsive behavior without build tools or configuration
-
-## [0.1.1] - 2026-03-10
+## v0.2.0
 
 ### Added
-- Position utilities: `position-[value]`, `top`, `right`, `bottom`, `left`, `z`
-- Typography utilities: `fs`, `fw`, `lh`, `ls`
-- Visual utilities: `br`, `op`, `gap`
+
+- Responsive support for typography utilities (`fs`, `fw`, `lh`, `ls`)
+- Responsive support for layout utilities
+- Responsive support for grid utilities
+- Responsive support for visual utilities (`br`, `op`, `gap`)
+- Responsive support for position utilities
 
 ### Improved
-- Added MutationObserver to automatically detect DOM changes
 
-### Performance
-- Debounced resize handler to reduce unnecessary recalculations
+- Added breakpoint priority resolution
+- Added automatic responsive value fallback behavior
+- Improved responsive consistency across all utility groups
+- Optimized resize handling by processing only responsive elements
 
-### Refactor
-- Simplified parser routing using grouped prefix arrays
+### Internal
+
+- Added responsive value storage system
+- Added `getClosestValue()` breakpoint resolver
+- Added responsive element tracking
+- Refactored responsive architecture for consistency
+:::
+
+---

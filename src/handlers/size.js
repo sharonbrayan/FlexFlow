@@ -21,6 +21,7 @@ export function applyWidth(el, className) {
   }
   // w@md-[value]
   if (className.startsWith("w@")) {
+    el.__flexflow.hasResponsive = true;
     const match = className.match(/^w@(\w+)-\[(.+)\]$/);
     if (!match) return;
 
@@ -61,6 +62,7 @@ export function applyWidth(el, className) {
 
   // h@md-[value]
   if (className.startsWith("h@")) {
+    el.__flexflow.hasResponsive = true;
     const match = className.match(/^h@(\w+)-\[(.+)\]$/);
     if (!match) return;
 
@@ -104,6 +106,7 @@ export function applyWidth(el, className) {
 
   // min-w / max-w responsive
   if (className.startsWith("min-w@") || className.startsWith("max-w@")) {
+    el.__flexflow.hasResponsive = true;
     const match = className.match(/^(min-w|max-w)@(\w+)-\[(.+)\]$/);
     if (!match) return;
 
@@ -154,6 +157,7 @@ export function applyWidth(el, className) {
 
   // min-h / max-h responsive
   if (className.startsWith("min-h@") || className.startsWith("max-h@")) {
+    el.__flexflow.hasResponsive = true;
     const match = className.match(/^(min-h|max-h)@(\w+)-\[(.+)\]$/);
     if (!match) return;
 

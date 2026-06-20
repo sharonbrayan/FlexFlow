@@ -38,6 +38,7 @@ export function applyLayout(el, className) {
 
   const dMatch = className.match(/^d@(\w+)-\[(.+)\]$/);
   if (dMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("display", "display", dMatch[1], dMatch[2]);
     return;
   }
@@ -50,6 +51,7 @@ export function applyLayout(el, className) {
 
   const flexMatch = className.match(/^flex@(\w+)-\[(.+)\]$/);
   if (flexMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("flexDirection", "flexDirection", flexMatch[1], flexMatch[2]);
     return;
   }
@@ -62,6 +64,7 @@ export function applyLayout(el, className) {
 
   const justifyMatch = className.match(/^justify@(\w+)-\[(.+)\]$/);
   if (justifyMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("justifyContent", "justifyContent", justifyMatch[1], justifyMatch[2]);
     return;
   }
@@ -74,6 +77,7 @@ export function applyLayout(el, className) {
 
   const itemsMatch = className.match(/^items@(\w+)-\[(.+)\]$/);
   if (itemsMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("alignItems", "alignItems", itemsMatch[1], itemsMatch[2]);
     return;
   }
@@ -86,6 +90,7 @@ export function applyLayout(el, className) {
 
   const wrapMatch = className.match(/^wrap@(\w+)-\[(.+)\]$/);
   if (wrapMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("flexWrap", "flexWrap", wrapMatch[1], wrapMatch[2]);
     return;
   }
@@ -98,6 +103,7 @@ export function applyLayout(el, className) {
 
   const contentMatch = className.match(/^content@(\w+)-\[(.+)\]$/);
   if (contentMatch) {
+    el.__flexflow.hasResponsive = true;
     handleResponsive("alignContent", "alignContent", contentMatch[1], contentMatch[2]);
     return;
   }

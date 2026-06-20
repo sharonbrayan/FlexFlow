@@ -46,17 +46,38 @@ Then use utility classes directly in your markup:
 </div>
 ```
 
-Responsive variants are applied at runtime based on viewport width.
+Responsive variants are resolved at runtime based on the active breakpoint.
 
+When multiple responsive values are provided, FlexFlow automatically applies the closest matching breakpoint value.
+
+Example:
+
+```html
+<div class="w-[100px] w@md-[200px] w@lg-[300px]"></div>
+```
+---
+## Breakpoint Resolution
+
+When multiple responsive values are defined, FlexFlow applies the closest matching breakpoint.
+
+```html
+<div class="fs-[14px] fs@md-[18px] fs@lg-[24px]"></div>
+```
 ---
 
 ## How It Works
 
 FlexFlow evaluates utility classes at runtime in the browser.
 
-It scans elements, parses supported class patterns, and applies corresponding inline styles dynamically. Styles are re-evaluated on window resize and when new elements are added to the DOM.
+It scans elements, parses supported utility classes, and applies the corresponding inline styles dynamically.
 
-This allows responsive behavior without build tools or configuration files.
+Responsive values are stored internally and resolved using breakpoint priority rules, allowing utilities to adapt automatically as the viewport changes.
+
+FlexFlow also observes DOM updates, automatically processing newly added elements and class changes without requiring manual re-initialization.
+
+To improve performance, resize updates are applied only to elements that use responsive utilities.
+
+This allows responsive behavior without build tools, configuration files, or compilation steps.
 
 ---
 
